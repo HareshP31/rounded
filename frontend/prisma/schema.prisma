@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  reviews   Review[]
+  createdAt DateTime @default(now())
+}
+
+model Game {
+  id          Int      @id // Use the ID from the IGDB API
+  title       String
+  coverUrl    String?
+  reviews     Review[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-10
+  content   String?  @db.Text
+  userId    String
+  gameId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  game      Game     @relation(fields: [gameId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, gameId]) // Prevents a user from reviewing the same game twice
+}
