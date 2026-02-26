@@ -9,6 +9,8 @@ RUN npm install
 # Copy the rest of the code
 COPY frontend/ .
 
+RUN npx prisma generate
+
 # Expose the port Next.js runs on
 EXPOSE 3000
 
