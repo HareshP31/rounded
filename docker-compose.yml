@@ -16,13 +16,17 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: "postgresql://user:password@db:5432/game_vault"
+      - DATABASE_URL=postgresql://myuser:mypassword@db:5432/game_vault
+      - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
+      - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET}
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - db
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - /app/src/generated/prisma
+    command: sh -c "npx prisma generate && npm run dev"
 
 volumes:
   postgres_data:
