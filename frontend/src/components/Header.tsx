@@ -15,6 +15,7 @@ export default async function Header() {
 
                     {session ? (
                         <div className="flex items-center gap-4">
+                            <Link href="/profile" className="hover:text-blue-400">My Vault</Link>
                             <span className="text-slate-400">Welcome, <b className="text-white">{session.username}</b></span>
                             <form action={logout}>
                                 <button className="bg-red-900/50 hover:bg-red-800 px-3 py-1 rounded text-sm border border-red-700">

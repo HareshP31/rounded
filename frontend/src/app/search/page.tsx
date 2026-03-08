@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react";
 import { handleSearch } from "@/app/actions/search";
+import ReviewForm from "@/components/ReviewForm";
 
 export default function SearchPage() {
     const [results, setResults] = useState<any[]>([]);
@@ -44,6 +45,13 @@ export default function SearchPage() {
                         )}
                         <div className="p-3">
                             <h2 className="font-medium text-sm truncate">{game.title}</h2>
+                        </div>
+                        <div className="p-4">
+                            <ReviewForm
+                                gameId={game.id}
+                                title={game.title}
+                                coverUrl={game.coverUrl}
+                            />
                         </div>
                     </div>
                 ))}
